@@ -75,22 +75,16 @@ public class LocalGestion {
                 case 4:
                     sup();
                     break;
-                /*case 5:
-                    rechnom();
-                    break;
+                case 5:
+                    rechpartielle();
                 case 6:
-                    derncom();
-                    break;
-                case 6: 
-                    rechpartielle();*/
-                case 7:
                     System.out.println("bye");
                     break;
                 default:
                     System.out.println("choix incorrect");
             }
 
-        } while (ch != 7);
+        } while (ch != 6);
         DBConnection.closeConnection();
     }
 
@@ -135,59 +129,49 @@ public class LocalGestion {
             System.out.println("Sigle :");
             String sigle = sc.nextLine();
             locActuel.setSigle(sigle);
+            System.out.println("Places:");
+            int places = sc.nextInt();
+            sc.skip("\n");
+            locActuel.setPlaces(places);
+            System.out.println("Description :");
+            String description = sc.nextLine();
+            locActuel.setDescription(description);
             localDAO.update(locActuel);
+            System.out.println("Nouvelles infos du local ID: " + locActuel.getIdlocal() + " | Sigle: " + locActuel.getSigle() + "     Places: " + locActuel.getPlaces() + "       Description: " + locActuel.getDescription());
         } catch (SQLException e) {
             System.out.println("erreur " + e.getMessage());
         }
 
     }
 
+    /**
+     *
+     */
     public void sup() {
         try {
-            System.out.println("sigle du local à supprimer :");
+            System.out.println("id du local à supprimer :");
             int num = sc.nextInt();
             locActuel = localDAO.read(num);
 
             localDAO.delete(locActuel);
+
+            System.out.println("Vous avez supprimé le local suivant:  ID: " + locActuel.getIdlocal() + "  Sigle" + locActuel.getSigle() + "  Places: " + locActuel.getPlaces() + "   Description: " + locActuel.getDescription());
         } catch (SQLException e) {
             System.out.println("erreur " + e.getMessage());
         }
     }
-/*
-    public void rechnom() {
-        System.out.println("nom recherché : ");
-        String sigle = sc.nextLine();
+
+    public void rechpartielle() {
+        System.out.println("local recherché : ");
+        String desc = sc.nextLine();
         try {
-            List<Local> alc = ((LocalDAO) localDAO).rechNom(sigle);
-            for (Local cl : alc) {
-                System.out.println(cl);
+            List<Local> alc = ((LocalDAO) localDAO).rechDesc(desc);
+            for (Local loc : alc) {
+                System.out.println(loc);
             }
         } catch (SQLException e) {
             System.out.println("erreur " + e.getMessage());
         }
-    }
-    
-    public void rechpartielle(){
-        try {
-            System.out.println("Sur quoi rechercher un local ? ");
-            String desc = sc.nextLine();
-            localDAO.rechpar(desc);
-        }
-        
-        catch (SQLException e){
-            System.out.println("erreur" + e.getMessage());
-        }
-        
-    }*/
 
- /*public void derncom() {
-        try {
-            LocalDate dt = ((LocalDAO) localDAO).dern_com(locActuel);
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("E d MMMM yyyy", Locale.FRENCH);
-            String aff = dt.format(dtf);
-            System.out.println("date de la denière commande de " + clActuel + " = " + aff);
-        } catch (SQLException e) {
-            System.out.println("erreur " + e.getMessage());
-        }
-    } */
+    }
 }

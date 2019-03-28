@@ -74,7 +74,7 @@ public class LocalDAO extends DAO<Local> {
      */
     @Override
     public Local update(Local obj) throws SQLException {
-        String req = "update local set places=?, description=? where sigle = ?";
+        String req = "update local set sigle=?, places=?, description=? where idlocal = ?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
 
             pstm.setInt(4, obj.getIdlocal());
@@ -110,41 +110,21 @@ public class LocalDAO extends DAO<Local> {
         }
     }
 
-    /*
-    public Local rechpar(int idlocal) throws SQLException {
-
-        String req = "select * from local where description LIKE %?%";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
-            
-            pstm.setInt(1, idlocal);
-            try(ResultSet rs = pstm.executeQuery()){
-                if(rs.next()){
-                    String sigle = rs.getString("SIGLE");
-                    int places = rs.getInt("PLACES");
-                    String description = rs.getString("DESCRIPTION");
-                    return new Local(idlocal, sigle, places, description);
-                }
-                    else { 
-                            throw new SQLException("Aucun local correspondant");
-                            }
-                
-            }
-            
-        }
-    }*/
+  
     /**
      * méthode permettant de récupérer tous les clients portant un certain nom
      *
+     * @param descr
      * @param nomrech nom recherché
      * @return liste de clients
      * @throws SQLException nom inconnu
      */
-    /*public List<Local> rechNom(String nomrech) throws SQLException {
+    public List<Local> rechDesc(String descr) throws SQLException {
         List<Local> plusieurs = new ArrayList<>();
-        String req = "select * from local where sigle = ?";
+        String req = "select * from local where description = ?";
 
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
-            pstm.setString(1, nomrech);
+            pstm.setString(1, "%"+descr+"%");
             try (ResultSet rs = pstm.executeQuery()) {
                 boolean trouve = false;
                 while (rs.next()) {
@@ -158,33 +138,13 @@ public class LocalDAO extends DAO<Local> {
                 }
 
                 if (!trouve) {
-                    throw new SQLException("nom inconnu");
+                    throw new SQLException("description inconnue");
                 } else {
                     return plusieurs;
                 }
             }
         }
 
-    }*/
+    }
 
-    /*@Override
-    public Local rechpar(String desc) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }*/
-    /**
-     * méthode permettant de récupérer la date de la dernière commande d'un
-     * client
-     *
-     * @param obj client recherché
-     * @return date de la dernière commande
-     * @throws SQLException client sans commande
-     *
-     * public LocalDate dern_com(Local obj) throws SQLException{ String req =
-     * "select derniere_com from CLIDATE where idclient = ?";
-     * try(PreparedStatement pstm = dbConnect.prepareStatement(req)){
-     * pstm.setInt(1,obj.idlocal()); try(ResultSet rs = pstm.executeQuery()){
-     * if(rs.next()){ LocalDate dt = rs.getDate(1).toLocalDate(); return dt; }
-     * else throw new SQLException("aucune commande enregistrée pour ce
-     * client"); } } }
-     */
 }

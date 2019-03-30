@@ -47,7 +47,9 @@ public abstract class DAO<T> {
 	 * @param obj objet à effacer
          * @throws SQLException exception d'effacement
 	 */
-	public abstract void delete(T obj) throws SQLException;    
+	public abstract void delete(T obj) throws SQLException;
+        
+
 
     public Local read(String sigle) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

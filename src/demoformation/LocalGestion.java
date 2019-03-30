@@ -58,7 +58,7 @@ public class LocalGestion {
 
         int ch = 0;
         do {
-            System.out.println("1.nouveau \n2.recherche\n3.modification\n4.suppression\n5.recherche sur nom\n6.fin");
+            System.out.println("1.Nouveau \n2.Recherche\n3.Modification\n4.Suppression\n5.Recherche sur base de la description\n6.Quitter");
             System.out.print("choix :");
             ch = sc.nextInt();
             sc.skip("\n");
@@ -104,8 +104,7 @@ public class LocalGestion {
             System.out.println("Sigle: " + locActuel.getSigle() + "     Places: " + locActuel.getPlaces() + "       Description: " + locActuel.getDescription());
             //System.out.println("local actuel : " + locActuel);
         } catch (SQLException e) {
-            System.out.println("erreur :" + e);
-            //System.out.println("Local déjà existant");
+            System.out.println("Erreur :" + e);
         }
 
     }
@@ -120,7 +119,7 @@ public class LocalGestion {
             System.out.println("local actuel : " + locActuel);
 
         } catch (SQLException e) {
-            System.out.println("erreur " + e.getMessage());
+            System.out.println("Erreur : " + e.getMessage());
         }
     }
 
@@ -139,14 +138,11 @@ public class LocalGestion {
             localDAO.update(locActuel);
             System.out.println("Nouvelles infos du local ID: " + locActuel.getIdlocal() + " | Sigle: " + locActuel.getSigle() + "     Places: " + locActuel.getPlaces() + "       Description: " + locActuel.getDescription());
         } catch (SQLException e) {
-            System.out.println("erreur " + e.getMessage());
+            System.out.println("Erreur : " + e.getMessage());
         }
 
     }
 
-    /**
-     *
-     */
     public void sup() {
         try {
             System.out.println("id du local à supprimer :");
@@ -157,7 +153,8 @@ public class LocalGestion {
 
             System.out.println("Vous avez supprimé le local suivant:  ID: " + locActuel.getIdlocal() + "  Sigle" + locActuel.getSigle() + "  Places: " + locActuel.getPlaces() + "   Description: " + locActuel.getDescription());
         } catch (SQLException e) {
-            System.out.println("erreur " + e.getMessage());
+
+            System.out.println("Erreur : " + e.getMessage());
         }
     }
 
@@ -170,7 +167,7 @@ public class LocalGestion {
                 System.out.println(loc);
             }
         } catch (SQLException e) {
-            System.out.println("erreur " + e.getMessage());
+            System.out.println("Erreur : " + e.getMessage());
         }
 
     }

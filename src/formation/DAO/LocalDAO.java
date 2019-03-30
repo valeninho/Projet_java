@@ -9,6 +9,13 @@ import formation.info.Local;
 
 public class LocalDAO extends DAO<Local> {
 
+    /**
+     * création d'un local sur base des valeurs de son objet formation
+     *
+     * @throws SQLException erreur de création
+     * @param obj local à créer
+     * @return local créé
+     */
     @Override
     public Local create(Local obj) throws SQLException {
 
@@ -37,11 +44,11 @@ public class LocalDAO extends DAO<Local> {
     }
 
     /**
-     * récupération des données d'un client sur base de son identifiant
+     * récupération des données d'un local sur base de son ID
      *
-     * @throws SQLException code inconnu
-     * @param idclient identifiant du client
-     * @return client trouvé
+     * @throws SQLException local inconnu
+     * @param idlocal identifiant du local
+     * @return local trouvé
      */
     public Local read(int idlocal) throws SQLException {
 
@@ -66,10 +73,10 @@ public class LocalDAO extends DAO<Local> {
     }
 
     /**
-     * mise à jour des données du client sur base de son identifiant
+     * mise à jour des données d'un local sur base de son ID
      *
-     * @return Client
-     * @param obj client à mettre à jour
+     * @return Local
+     * @param obj local à mettre à jour
      * @throws SQLException erreur de mise à jour
      */
     @Override
@@ -90,10 +97,10 @@ public class LocalDAO extends DAO<Local> {
     }
 
     /**
-     * effacement du client sur base de son identifiant
+     * effacement du local sur base de son ID
      *
      * @throws SQLException erreur d'effacement
-     * @param obj client à effacer
+     * @param obj local à effacer
      */
     @Override
     public void delete(Local obj) throws SQLException {
@@ -110,21 +117,20 @@ public class LocalDAO extends DAO<Local> {
         }
     }
 
-  
     /**
-     * méthode permettant de récupérer tous les clients portant un certain nom
+     * méthode permettant de récupérer tous les locaux selon une recherche
+     * partielle sur leur description
      *
-     * @param descr
-     * @param nomrech nom recherché
-     * @return liste de clients
-     * @throws SQLException nom inconnu
+     * @param descr description recherché
+     * @return liste de locaux
+     * @throws SQLException description inconnu
      */
-    public List<Local> rechDesc(String descr) throws SQLException {
+    public List<Local> rechDesc(String desc) throws SQLException {
         List<Local> plusieurs = new ArrayList<>();
-        String req = "select * from local where description = ?";
+        String req = "select * from local where description like ?";
 
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
-            pstm.setString(1, "%"+descr+"%");
+            pstm.setString(1, "%" + desc + "%");
             try (ResultSet rs = pstm.executeQuery()) {
                 boolean trouve = false;
                 while (rs.next()) {
@@ -138,7 +144,7 @@ public class LocalDAO extends DAO<Local> {
                 }
 
                 if (!trouve) {
-                    throw new SQLException("description inconnue");
+                    throw new SQLException("Description Inconnue");
                 } else {
                     return plusieurs;
                 }

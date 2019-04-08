@@ -164,7 +164,7 @@ public class LocalGestion {
         try {
             List<Local> alc = ((LocalDAO) localDAO).rechDesc(desc);
             for (Local loc : alc) {
-                System.out.println(loc);
+                System.out.println(loc.getDescription());
             }
         } catch (SQLException e) {
             System.out.println("Erreur : " + e.getMessage());

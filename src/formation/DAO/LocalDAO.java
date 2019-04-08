@@ -141,12 +141,14 @@ public class LocalDAO extends DAO<Local> {
                     String description = rs.getString("DESCRIPTION");
 
                     plusieurs.add(new Local(idlocal, sigle, places, description));
+
                 }
 
                 if (!trouve) {
                     throw new SQLException("Description Inconnue");
                 } else {
                     return plusieurs;
+
                 }
             }
         }

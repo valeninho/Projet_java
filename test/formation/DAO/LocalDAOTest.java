@@ -17,11 +17,18 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
+
 
 /**
  *
  * @author valentin
  */
+
+// j'ai utilisé la classe FixMethodOrder car mes différents tests s'exécutaient dans un ordre aléatoire et faisaient planter tout le programme
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LocalDAOTest {
 
     static Connection dbConnect;
@@ -52,12 +59,12 @@ public class LocalDAOTest {
 
     @Test
 
-    public void testCreate() throws Exception {
+    public void atestCreate() throws Exception {
         System.out.println("create");
-        Local obj = new Local(0, "TestSigle", 10, "TestDescription");
+        Local obj = new Local(0, "TSigl", 10, "TestDescription");
         LocalDAO instance = new LocalDAO();
         instance.setConnection(dbConnect);
-        Local expResult = new Local(0, "TestSigle", 10, "TestDescription");
+        Local expResult = new Local(0, "TSigl", 10, "TestDescription");
         Local result = instance.create(obj);
 
         assertEquals("Sigle Différents", expResult.getSigle(), result.getSigle());
@@ -65,7 +72,9 @@ public class LocalDAOTest {
         assertEquals("descriptions différents", expResult.getDescription(), result.getDescription());
         assertNotEquals("id non généré", expResult.getIdlocal(), result.getIdlocal());
         int idlocal = result.getIdlocal();
-        obj = new Local(0, "TestSigle", 50, "TestDescription");
+        
+        instance.delete(obj);
+        /*obj = new Local(0, "TSigl", 50, "TestDescription");
         try {
             Local result2 = instance.create(obj);
             fail("exception de doublon non déclenchée");
@@ -80,17 +89,17 @@ public class LocalDAOTest {
             fail("exception de code postal non déclenchée");
             instance.delete(result3);
         } catch (SQLException e) {
-        }
+        }*/
 
     }
 
     @Test
-    public void testRead() throws Exception {
+    public void btestRead() throws Exception {
         System.out.println("read");
         int idlocal = 0;
         LocalDAO instance = new LocalDAO();
         instance.setConnection(dbConnect);
-        Local obj = new Local(0, "TestSigle", 10, "TestDescription");
+        Local obj = new Local(0, "TSigl", 10, "TestDescription");
         Local expResult = instance.create(obj);
         idlocal = expResult.getIdlocal();
         Local result = instance.read(idlocal);
@@ -107,13 +116,13 @@ public class LocalDAOTest {
     }
     
     @Test
-    public void testUpdate() throws Exception {
+    public void ctestUpdate() throws Exception {
         System.out.println("update");
-        Local obj = new Local(0,"TestSigle", 10, "TestDescription");
+        Local obj = new Local(0,"TSigl", 10, "TestDescription");
         LocalDAO instance = new LocalDAO();
         instance.setConnection(dbConnect);
         obj = instance.create(obj);
-        obj.setSigle("TestSigle2");
+        obj.setSigle("TSig2");
         obj.setPlaces(20);
         obj.setDescription("TestDescription2");
   
@@ -128,9 +137,9 @@ public class LocalDAOTest {
     }
     
     @Test
-    public void testDelete() throws Exception {
+    public void dtestDelete() throws Exception {
         System.out.println("delete");
-        Local obj = new Local(0,"TestSigle", 10, "TestDescription");
+        Local obj = new Local(0,"TSigl", 10, "TestDescription");
         LocalDAO instance = new LocalDAO();
         instance.setConnection(dbConnect);
         obj = instance.create(obj);
@@ -144,10 +153,10 @@ public class LocalDAOTest {
     }
     
     @Test
-    public void testRechDesc() throws Exception {
+    public void etestRechDesc() throws Exception {
         System.out.println("rechNom");
-        Local obj1 = new Local(0, "TestSigle", 10, "TestDescription");
-        Local obj2 = new Local(0,"TestSigle", 20, "TestDescription");
+        Local obj1 = new Local(0, "TSigl", 10, "TestDescription");
+        Local obj2 = new Local(0,"TSigl", 20, "TestDescription");
         
         String desc = "TestDescription";
         LocalDAO instance = new LocalDAO();

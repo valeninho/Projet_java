@@ -19,11 +19,13 @@ public abstract class DAO<T> {
    }
 	/**
 	 * Permet de récupérer un objet via son ID
-	 * @param id identifiant de l'objet recherché
+	 * @param sigle du local recherché
 	 * @return T objet trouvé
          * @throws SQLException objet non trouvé
 	 */
-	public abstract T read(int idlocal)throws SQLException;
+	public abstract T read(String sigle)throws SQLException;
+        
+        public abstract T read(int idlocal) throws SQLException;
 	
 	/**
 	 * Permet de créer une entrée dans la base de données
@@ -49,11 +51,6 @@ public abstract class DAO<T> {
 	 */
 	public abstract void delete(T obj) throws SQLException;
         
-
-
-    public Local read(String sigle) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     /*
         public abstract T rechpar (String desc) throws SQLException;*/
 

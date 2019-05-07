@@ -112,11 +112,11 @@ public class LocalGestion {
     public void recherche() {
         try {
             System.out.println("numéro recherché :");
-            int nc = sc.nextInt();
+            String nc = sc.nextLine();
             locActuel = localDAO.read(nc);
 
             System.out.println("Sigle: " + locActuel.getSigle() + "     Places: " + locActuel.getPlaces() + "       Description: " + locActuel.getDescription());
-            System.out.println("local actuel : " + locActuel);
+            System.out.println("local actuel : " + locActuel.getSigle());
 
         } catch (SQLException e) {
             System.out.println("Erreur : " + e.getMessage());

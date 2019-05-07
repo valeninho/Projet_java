@@ -1,10 +1,5 @@
 package formation.DAO;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -74,25 +69,10 @@ public class LocalDAOTest {
         int idlocal = result.getIdlocal();
         
         instance.delete(obj);
-        /*obj = new Local(0, "TSigl", 50, "TestDescription");
-        try {
-            Local result2 = instance.create(obj);
-            fail("exception de doublon non déclenchée");
-            instance.delete(result2);
-        } catch (SQLException e) {
-        }
-        instance.delete(result);
-
-        obj = new Local(0, "TestSigle", 5, "TestDescription");
-        try {
-            Local result3 = instance.create(obj);
-            fail("exception de code postal non déclenchée");
-            instance.delete(result3);
-        } catch (SQLException e) {
-        }*/
 
     }
 
+    
     @Test
     public void btestRead() throws Exception {
         System.out.println("read");
@@ -132,8 +112,7 @@ public class LocalDAOTest {
         assertEquals(expResult.getPlaces(), result.getPlaces());
         assertEquals(expResult.getDescription(), result.getDescription());
         instance.delete(obj);
-        //TODO verifier que si met à jour vers un triplet nom-prenom-tel déjà existant, on a une exception
-        //TODO verifier que si on met à jour vers un cp non valide, on a une exception
+
     }
     
     @Test
@@ -149,7 +128,7 @@ public class LocalDAOTest {
             fail("exception de record introuvable non générée");
         }
         catch(SQLException e){}
-        //TODO vérifier qu'on a bien une exception en cas de record parent de clé étrangère
+       
     }
     
     @Test

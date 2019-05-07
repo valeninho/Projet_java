@@ -47,22 +47,22 @@ public class LocalDAO extends DAO<Local> {
      * récupération des données d'un local sur base de son ID
      *
      * @throws SQLException local inconnu
-     * @param idlocal identifiant du local
+     * @param nc sigle du local recherché
      * @return local trouvé
      */
-    public Local read(int idlocal) throws SQLException {
+    public Local read(String nc) throws SQLException {
 
-        String req = "select * from local where idlocal = ?";
+        String req = "select * from local where sigle = ?";
 
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
 
-            pstm.setInt(1, idlocal);
+            pstm.setString(1, nc);
             try (ResultSet rs = pstm.executeQuery()) {
                 if (rs.next()) {
-                    String sigle = rs.getNString("SIGLE");
+                    int idlocal = rs.getInt("IDLOCAL");
                     int places = rs.getInt("PLACES");
                     String description = rs.getString("DESCRIPTION");
-                    return new Local(idlocal, sigle, places, description);
+                    return new Local(idlocal, nc, places, description);
 
                 } else {
                     throw new SQLException("Local inconnu");
@@ -153,6 +153,11 @@ public class LocalDAO extends DAO<Local> {
             }
         }
 
+    }
+
+    @Override
+    public Local read(int idlocal) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
